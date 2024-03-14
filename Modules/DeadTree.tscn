@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://ci1gwysanm1m1"]
+
+[ext_resource type="Shader" path="res://Shaders/Foliage.gdshader" id="1_0u3w8"]
+[ext_resource type="Texture2D" uid="uid://vlj2ndpqcfxr" path="res://assets/DeadTree.png" id="1_rvsj0"]
+[ext_resource type="Script" path="res://Modules/DeadTree.gd" id="2_u3dqr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_erjct"]
+shader = ExtResource("1_0u3w8")
+shader_parameter/light_color = Color(1, 1, 1, 1)
+shader_parameter/wind_speed = 0.5
+shader_parameter/elasticity = 2.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_inxbc"]
+shader = ExtResource("1_0u3w8")
+shader_parameter/light_color = Color(0, 0, 0, 1)
+shader_parameter/wind_speed = 0.5
+shader_parameter/elasticity = 2.5
+
+[node name="DeadTree" type="StaticBody2D"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_erjct")
+script = ExtResource("2_u3dqr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_inxbc")
+position = Vector2(4, -32)
+texture = ExtResource("1_rvsj0")

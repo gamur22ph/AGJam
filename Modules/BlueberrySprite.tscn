@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2bkbhjfea116"]
+
+[ext_resource type="Texture2D" uid="uid://mpw8yqmwrhx7" path="res://assets/BlueberryPickable.png" id="1_op1fp"]
+
+[node name="BlueberrySprite" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_op1fp")

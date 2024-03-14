@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://x5fsxfpl8511"]
+
+[ext_resource type="Texture2D" uid="uid://q3wknwhyqt5" path="res://assets/CherryPickable.png" id="1_ca3xh"]
+
+[node name="CherrySprite" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_ca3xh")

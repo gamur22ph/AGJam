@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7sw4iohhyflk"]
+
+[ext_resource type="Texture2D" uid="uid://dfqq533jnbjit" path="res://assets/light.png" id="1_4gdps"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gdn2y"]
+blend_mode = 2
+
+[node name="SubtractiveLight" type="Sprite2D"]
+self_modulate = Color(1, 1, 1, 0.5)
+material = SubResource("CanvasItemMaterial_gdn2y")
+texture = ExtResource("1_4gdps")

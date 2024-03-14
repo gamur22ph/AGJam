@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://3n6igj4onqug"]
+
+[ext_resource type="Script" path="res://Modules/Interactables/Note.gd" id="1_7hh3o"]
+[ext_resource type="Texture2D" uid="uid://dedcnfd58twp2" path="res://assets/Note.png" id="2_v8e5x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sx5e5"]
+
+[node name="Note" type="Node2D"]
+script = ExtResource("1_7hh3o")
+note_content = "Insert Text Here"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -6)
+texture = ExtResource("2_v8e5x")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -6)
+collision_layer = 256
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_sx5e5")

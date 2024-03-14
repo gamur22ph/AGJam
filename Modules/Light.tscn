@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://73ctti0pay2o"]
+
+[ext_resource type="Script" path="res://Modules/light.gd" id="2_d53r1"]
+[ext_resource type="Shader" path="res://Shaders/mask.gdshader" id="2_soqln"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i3o8t"]
+shader = ExtResource("2_soqln")
+shader_parameter/tint = null
+
+[sub_resource type="Gradient" id="Gradient_pgb8s"]
+offsets = PackedFloat32Array(0, 0.321637, 0.614035, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.584795, 0.584795, 0.584795, 0.584795, 0.269006, 0.269006, 0.269006, 0.269006, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vu3kr"]
+gradient = SubResource("Gradient_pgb8s")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.2, 0.2)
+
+[node name="Light" type="Sprite2D"]
+z_index = 10
+material = SubResource("ShaderMaterial_i3o8t")
+texture = SubResource("GradientTexture2D_vu3kr")
+script = ExtResource("2_d53r1")

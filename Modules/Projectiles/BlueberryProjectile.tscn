@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvkuoeyvwmm60"]
+
+[ext_resource type="Texture2D" uid="uid://mpw8yqmwrhx7" path="res://assets/BlueberryPickable.png" id="1_vyaw5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g5s2h"]
+
+[node name="BlueberryProjectile" type="Node2D"]
+texture_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_vyaw5")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_g5s2h")

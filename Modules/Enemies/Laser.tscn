@@ -1,0 +1,89 @@
+[gd_scene load_steps=8 format=3 uid="uid://curugsaprv7tw"]
+
+[ext_resource type="Texture2D" uid="uid://7y2d67w1t8c0" path="res://assets/Aberrolas/Aberrola1/Laser.png" id="1_7kmwt"]
+[ext_resource type="Script" path="res://Modules/Enemies/Laser.gd" id="1_q0u3r"]
+[ext_resource type="PackedScene" uid="uid://73ctti0pay2o" path="res://Modules/Light.tscn" id="3_avgv6"]
+
+[sub_resource type="Animation" id="Animation_n2vjj"]
+resource_name = "Laser"
+length = 3.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 0.2), Vector2(1, 0.21), Vector2(1, 1), Vector2(1, 1), Vector2(1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5, 3.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"activate_damage"
+}, {
+"args": [],
+"method": &"deactivate_damage"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_dqm5x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l4ort"]
+_data = {
+"Laser": SubResource("Animation_n2vjj"),
+"RESET": SubResource("Animation_dqm5x")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x4pf8"]
+size = Vector2(194, 32)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_q0u3r")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_l4ort")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 15
+texture_filter = 1
+texture = ExtResource("1_7kmwt")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(97, 0)
+shape = SubResource("RectangleShape2D_x4pf8")
+
+[node name="Light" parent="." instance=ExtResource("3_avgv6")]
+scale = Vector2(12, 12)
+offset = Vector2(10, 0)

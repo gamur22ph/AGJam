@@ -1,0 +1,428 @@
+[gd_scene load_steps=32 format=3 uid="uid://chr26wlewo0oj"]
+
+[ext_resource type="Script" path="res://Modules/Enemies/AberrolaIII.gd" id="1_qo081"]
+[ext_resource type="Texture2D" uid="uid://5kvit4ma373" path="res://assets/Aberrolas/Aberrola3/Aberrola3.png" id="2_as2nj"]
+[ext_resource type="PackedScene" uid="uid://dpkpxh578lq7e" path="res://Modules/Components/HealthComponent.tscn" id="2_pttq2"]
+[ext_resource type="PackedScene" uid="uid://cmktptxcv40ro" path="res://Modules/Components/PatrolComponent.tscn" id="3_167w0"]
+[ext_resource type="Texture2D" uid="uid://dijx12hqdcumt" path="res://assets/Aberrolas/Aberrola3/Aberrola3-DEATH.png" id="3_c3ub2"]
+[ext_resource type="Texture2D" uid="uid://cn2orgopxbil2" path="res://assets/Aberrolas/Aberrola3/Aberrola3-Attack-SpriteSheet.png" id="3_sihy1"]
+[ext_resource type="Texture2D" uid="uid://bdn37dus0822q" path="res://assets/Aberrolas/Aberrola3/Aberrola3-Moving-SpriteSheet.png" id="4_83f8l"]
+[ext_resource type="Texture2D" uid="uid://dk1o71rgewfuq" path="res://assets/Aberrolas/Aberrola3/Aberrola3-Slash.png" id="6_u36cr"]
+[ext_resource type="Script" path="res://Modules/Enemies/ChargeAttack.gd" id="7_0aaes"]
+[ext_resource type="PackedScene" uid="uid://bpesbccwscvws" path="res://Modules/Components/DropComponent.tscn" id="10_4w8m3"]
+[ext_resource type="PackedScene" uid="uid://cp3oqhpieqwjj" path="res://Modules/Blueberry.tscn" id="11_7exni"]
+[ext_resource type="Script" path="res://Modules/Components/Drop.gd" id="12_ejv3o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cgev"]
+atlas = ExtResource("3_c3ub2")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68n5m"]
+atlas = ExtResource("3_c3ub2")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4a55"]
+atlas = ExtResource("2_as2nj")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llqx5"]
+atlas = ExtResource("3_sihy1")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qr6at"]
+atlas = ExtResource("3_sihy1")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0ri7"]
+atlas = ExtResource("4_83f8l")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pajv8"]
+atlas = ExtResource("4_83f8l")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ekxxr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cgev")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68n5m")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4a55")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llqx5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qr6at")
+}],
+"loop": false,
+"name": &"Melee",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0ri7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pajv8")
+}],
+"loop": true,
+"name": &"Moving",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_e53tx"]
+resource_name = "Charging"
+length = 1.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Melee"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ChargeAttack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.55, 1.25),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"charge"
+}, {
+"args": [],
+"method": &"stop"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_2rmbk"]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Death"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"separate_sprite_and_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_eksdp"]
+resource_name = "Idle"
+length = 0.001
+step = 0.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.001),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_46a1r"]
+resource_name = "Melee"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Melee"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeleeAttack/Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"activate_melee_attack"
+}, {
+"args": [],
+"method": &"set_to_aggro_state"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_oh0en"]
+resource_name = "Moving"
+length = 0.4
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Moving"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_2cxlt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Melee"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeleeAttack/Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fwvct"]
+_data = {
+"Charging": SubResource("Animation_e53tx"),
+"Death": SubResource("Animation_2rmbk"),
+"Idle": SubResource("Animation_eksdp"),
+"Melee": SubResource("Animation_46a1r"),
+"Moving": SubResource("Animation_oh0en"),
+"RESET": SubResource("Animation_2cxlt")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5b8qe"]
+size = Vector2(45, 36)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ofmi"]
+radius = 25.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_am7ov"]
+size = Vector2(56, 50)
+
+[sub_resource type="Resource" id="Resource_in8ce"]
+script = ExtResource("12_ejv3o")
+drop_object = ExtResource("11_7exni")
+quantity = 10
+
+[node name="AberrolaIII" type="CharacterBody2D" groups=["Enemy"]]
+texture_filter = 1
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_qo081")
+base_movement_speed = 120.0
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_pttq2")]
+position = Vector2(-180.606, 96.8934)
+max_health = 500.0
+health_regeneration = 0.5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ekxxr")
+animation = &"Melee"
+autoplay = "Idle"
+offset = Vector2(0, -32)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fwvct")
+}
+autoplay = "Idle"
+
+[node name="PatrolComponent" parent="." instance=ExtResource("3_167w0")]
+patrol_type = 0
+relative_to_base_position = false
+patrol_points = Array[Vector2]([Vector2(1320, 201), Vector2(340, 960), Vector2(-580, 690), Vector2(-480, -50), Vector2(-50, -450)])
+min_patrol_time = 2.0
+max_patrol_time = 3.0
+
+[node name="AggroLostTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -18)
+shape = SubResource("RectangleShape2D_5b8qe")
+
+[node name="MeleeAttack" type="ShapeCast2D" parent="."]
+position = Vector2(-21, 18)
+shape = SubResource("CircleShape2D_4ofmi")
+target_position = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="MeleeAttack"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_u36cr")
+
+[node name="ChargeAttack" type="Area2D" parent="."]
+position = Vector2(0, -26)
+collision_layer = 0
+monitoring = false
+monitorable = false
+script = ExtResource("7_0aaes")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChargeAttack"]
+shape = SubResource("RectangleShape2D_am7ov")
+
+[node name="MeleeAttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ChargeAttackTimer" type="Timer" parent="."]
+wait_time = 7.5
+one_shot = true
+
+[node name="MercilessTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="DropComponent" parent="." instance=ExtResource("10_4w8m3")]
+drops = Array[ExtResource("12_ejv3o")]([SubResource("Resource_in8ce")])
+
+[connection signal="body_entered" from="ChargeAttack" to="ChargeAttack" method="_on_body_entered"]

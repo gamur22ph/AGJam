@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmktptxcv40ro"]
+
+[ext_resource type="Script" path="res://Modules/Components/PatrolComponent.gd" id="1_4uuhp"]
+
+[node name="PatrolComponent" type="Node2D"]
+script = ExtResource("1_4uuhp")

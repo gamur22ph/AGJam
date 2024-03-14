@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg2b5n1w3hw7"]
+
+[ext_resource type="Texture2D" uid="uid://1rit66a2qe4h" path="res://assets/CherryTorch.png" id="1_f2hef"]
+[ext_resource type="PackedScene" uid="uid://73ctti0pay2o" path="res://Modules/Light.tscn" id="2_iqj01"]
+
+[node name="CherryTorch" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -16)
+texture = ExtResource("1_f2hef")
+
+[node name="Light" parent="." instance=ExtResource("2_iqj01")]
+scale = Vector2(4, 4)
+offset = Vector2(0, -4.5)
+dynamic_light = true

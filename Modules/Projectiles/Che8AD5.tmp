@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://clixlxwi30ajs"]
+
+[ext_resource type="Script" path="res://Modules/Projectiles/CherryProjectile.gd" id="1_enmia"]
+[ext_resource type="Texture2D" uid="uid://q3wknwhyqt5" path="res://assets/CherryPickable.png" id="2_keprt"]
+[ext_resource type="Texture2D" uid="uid://cqdf6hlluq48a" path="res://assets/CherryFireSpriteSheet.png" id="3_cww1n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wdmm0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0b38t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xh8aw"]
+atlas = ExtResource("3_cww1n")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtyd5"]
+atlas = ExtResource("3_cww1n")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ylova"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xh8aw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtyd5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_aa6xw"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vkp1v"]
+gradient = SubResource("Gradient_aa6xw")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.2, 0.2)
+
+[node name="CherryProjectile" type="CharacterBody2D"]
+texture_filter = 1
+collision_mask = 0
+script = ExtResource("1_enmia")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_keprt")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_wdmm0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0b38t")
+
+[node name="Fire" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.784314)
+texture_filter = 1
+position = Vector2(0, 1)
+sprite_frames = SubResource("SpriteFrames_ylova")
+autoplay = "default"
+offset = Vector2(0, -9)
+
+[node name="PointLight2D" type="PointLight2D" parent="Fire"]
+color = Color(1, 0.827451, 0.568627, 1)
+blend_mode = 2
+range_layer_min = -100
+range_layer_max = 100
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_vkp1v")
+texture_scale = 2.0

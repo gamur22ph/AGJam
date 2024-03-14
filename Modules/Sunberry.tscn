@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cx2t0x5getv17"]
+
+[ext_resource type="Script" path="res://Modules/Pickable.gd" id="1_7ugmj"]
+[ext_resource type="Texture2D" uid="uid://d1iq0ggwy4e44" path="res://assets/Sunberry.png" id="2_dqle4"]
+[ext_resource type="PackedScene" uid="uid://73ctti0pay2o" path="res://Modules/Light.tscn" id="3_bknsk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xia2v"]
+
+[node name="Sunberry" type="Node2D"]
+script = ExtResource("1_7ugmj")
+item_name = "Sunberry"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_dqle4")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_xia2v")
+
+[node name="Light" parent="." instance=ExtResource("3_bknsk")]
+scale = Vector2(5, 5)

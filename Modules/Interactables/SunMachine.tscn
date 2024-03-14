@@ -1,0 +1,136 @@
+[gd_scene load_steps=10 format=3 uid="uid://ct4n2llfjj17a"]
+
+[ext_resource type="Texture2D" uid="uid://cj44a44xpg3wq" path="res://assets/SunMachine/SunMachine-Over.png" id="1_dropv"]
+[ext_resource type="Script" path="res://Modules/Interactables/SunMachine.gd" id="1_irotv"]
+[ext_resource type="Texture2D" uid="uid://b4ckeh0alu3ul" path="res://assets/SunMachine/SunMachine-Progress.png" id="2_xenha"]
+[ext_resource type="Texture2D" uid="uid://7y2d67w1t8c0" path="res://assets/Aberrolas/Aberrola1/Laser.png" id="4_32j68"]
+[ext_resource type="PackedScene" uid="uid://73ctti0pay2o" path="res://Modules/Light.tscn" id="5_gvr6r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5dggt"]
+size = Vector2(36, 20)
+
+[sub_resource type="Animation" id="Animation_v0bxy"]
+resource_name = "Activate"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Laser:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8, 4, 4.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(4, 0), Vector2(4, 0.2), Vector2(4, 1), Vector2(4, 1), Vector2(0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"create_light"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Laser:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 4.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_bgbgs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Laser:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Laser:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cj8jx"]
+_data = {
+"Activate": SubResource("Animation_v0bxy"),
+"RESET": SubResource("Animation_bgbgs")
+}
+
+[node name="SunMachine" type="Node2D"]
+script = ExtResource("1_irotv")
+max_sunberries = 60
+
+[node name="MachineSprite" type="TextureProgressBar" parent="."]
+texture_filter = 1
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+fill_mode = 3
+texture_over = ExtResource("1_dropv")
+texture_progress = ExtResource("2_xenha")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_5dggt")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -22.0
+offset_top = -47.0
+offset_right = 24.0
+offset_bottom = -27.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "0/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cj8jx")
+}
+
+[node name="Laser" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(-8, -31)
+rotation = -1.5708
+scale = Vector2(4, 1e-05)
+texture = ExtResource("4_32j68")
+
+[node name="Light" parent="Laser" instance=ExtResource("5_gvr6r")]
+z_index = 15
+scale = Vector2(20, 20)
+offset = Vector2(5, 0)
