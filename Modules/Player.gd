@@ -28,7 +28,6 @@ var aim_range : float = 200
 var active_berry : int = 0
 
 @onready var camera : Camera2D = get_node("Camera2D")
-@onready var sprite : Sprite2D = get_node("Sprite2D")
 @onready var interaction_zone : ShapeCast2D = get_node("InteractionZone")
 @onready var cherry_sprint_timer : Timer = get_node("CherrySprintTimer")
 @onready var crosshair : Sprite2D = get_node("Crosshair")
@@ -58,7 +57,7 @@ var active_action : ACTION = ACTION.NONE
 
 func _ready():
 	current_movement_speed = base_movement_speed
-	##health_component.connect("health_depleted", )
+	health_component.connect("health_depleted", _handle_death)
 
 func _process(delta):
 	handle_flip()
@@ -81,7 +80,7 @@ func _process(delta):
 		active_berry = 2
 		berry_switched.emit(2)
 	if Input.is_action_just_pressed("switch"):
-		if active_berry == 2:
+		if active_berry == 2 or (not sunberry_unlocked and active_berry == 1):
 			active_berry = 0
 		else:
 			active_berry += 1
@@ -284,3 +283,7 @@ func is_blueberry_full():
 
 func is_sunberry_full():
 	return sunberry_count == max_sunberry
+
+func _handle_death():
+	get_tree().current_scene.process_mode = Node.PROCESS_MODE_DISABLED
+	get_tree().get_first_node_in_group("UI").show_death_panel()

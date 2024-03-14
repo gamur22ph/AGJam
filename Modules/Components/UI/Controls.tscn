@@ -29,11 +29,14 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Controls:
 WASD - Movement
+RightClick - Aim
+LeftClick - Throw
 F - Interact
 1, 2, 3 - Select Berry
 M_Wheel/Q - Switch Berry
 G - Drop
 Shift - Consume Cherry(Acerola)
 H - Consume Blueberry(Aberrola)
+M - Open Map
 "
 autowrap_mode = 3

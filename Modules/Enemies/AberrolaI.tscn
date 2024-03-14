@@ -259,7 +259,6 @@ libraries = {
 }
 
 [node name="PatrolComponent" parent="." instance=ExtResource("3_a5d71")]
-patrol_type = 0
 relative_to_base_position = true
 patrol_points = Array[Vector2]([Vector2(-250, -150), Vector2(0, 0), Vector2(250, 150)])
 min_patrol_time = 2.0

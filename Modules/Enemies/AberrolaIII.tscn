@@ -377,8 +377,6 @@ libraries = {
 autoplay = "Idle"
 
 [node name="PatrolComponent" parent="." instance=ExtResource("3_167w0")]
-patrol_type = 0
-relative_to_base_position = false
 patrol_points = Array[Vector2]([Vector2(1320, 201), Vector2(340, 960), Vector2(-580, 690), Vector2(-480, -50), Vector2(-50, -450)])
 min_patrol_time = 2.0
 max_patrol_time = 3.0

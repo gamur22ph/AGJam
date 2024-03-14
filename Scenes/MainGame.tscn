@@ -234,7 +234,8 @@ alpha_curve = SubResource("CurveTexture_xvrkx")
 y_sort_enabled = true
 script = ExtResource("1_ncg2v")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." groups=["UI"]]
+process_mode = 3
 script = ExtResource("2_0k6hn")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI"]
@@ -463,6 +464,47 @@ text = "Main Menu"
 [node name="Controls" parent="UI/GameMenu" instance=ExtResource("11_4mwwu")]
 layout_mode = 1
 mouse_filter = 2
+
+[node name="DeathPanel" type="Panel" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -89.0
+offset_top = -33.0
+offset_right = 89.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/DeathPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -21.5
+offset_right = 21.5
+offset_bottom = 20.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "DEAD"
+
+[node name="Button" type="Button" parent="UI/DeathPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -14.0
+offset_right = 48.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play Again"
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -1
@@ -746,6 +788,15 @@ position = Vector2(178, 974)
 [node name="Aberrola10" parent="Enemies" instance=ExtResource("21_dx3pi")]
 position = Vector2(-949, 929)
 
+[node name="Aberrola11" parent="Enemies" instance=ExtResource("21_dx3pi")]
+position = Vector2(1233, -415)
+
+[node name="Aberrola12" parent="Enemies" instance=ExtResource("21_dx3pi")]
+position = Vector2(1326, -377)
+
+[node name="Aberrola13" parent="Enemies" instance=ExtResource("21_dx3pi")]
+position = Vector2(1212, -500)
+
 [node name="InteractableObjects" type="Node2D" parent="."]
 
 [node name="SunMachine" parent="InteractableObjects" instance=ExtResource("22_vngdv")]
@@ -788,7 +839,7 @@ Acerola, Also known as Demon Cherry
 position = Vector2(509, 388)
 note_content = "Journal
 
-It's so dark, good thing I have a map (M)"
+Find a way to light up the world"
 
 [node name="Cherry" parent="InteractableObjects" instance=ExtResource("4_yrpjh")]
 position = Vector2(435, 195)
@@ -817,6 +868,10 @@ position = Vector2(545, 198)
 [node name="Cherry9" parent="InteractableObjects" instance=ExtResource("4_yrpjh")]
 position = Vector2(556, 190)
 
+[node name="Note3" parent="InteractableObjects" instance=ExtResource("12_d1qga")]
+position = Vector2(-1669, 156)
+note_content = "Acerola + Aberrola = ???"
+
 [node name="LightingSystem" type="Control" parent="."]
 z_index = 10
 layout_mode = 3
@@ -826,7 +881,6 @@ offset_right = 30.0
 offset_bottom = 40.0
 
 [node name="LightBuffer" type="BackBufferCopy" parent="." groups=["Lightbuffer"]]
-visible = false
 position = Vector2(-69, 13087)
 copy_mode = 2
 
@@ -851,3 +905,4 @@ visibility_rect = Rect2(-1750, -750, 2250, 1250)
 [connection signal="pressed" from="UI/PlayerMap/PlayerMapExitButton" to="UI" method="_on_player_map_exit_button_pressed"]
 [connection signal="pressed" from="UI/GameMenu/Panel/VBoxContainer/ReturnButton" to="UI" method="_on_return_button_pressed"]
 [connection signal="pressed" from="UI/GameMenu/Panel/VBoxContainer/MenuButton" to="UI" method="_on_menu_button_pressed"]
+[connection signal="pressed" from="UI/DeathPanel/Button" to="UI" method="_on_button_pressed"]

@@ -10,9 +10,9 @@ extends CanvasLayer
 @onready var map_ui : TextureRect = get_node("PlayerMap")
 @onready var player : Node2D = get_tree().get_first_node_in_group("Player")
 @onready var note_manager = get_node("NoteManager")
+@onready var death_panel : Panel = get_node("DeathPanel")
 
 @onready var game_menu : Control = get_node("GameMenu")
-var main_menu_scene : PackedScene = preload("res://Scenes/MainMenu.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,7 +30,10 @@ func _process(delta):
 		map_ui.hide()
 		note_manager.paper.hide()
 	if Input.is_action_just_pressed("map"):
-		map_ui.show()
+		if not map_ui.visible:
+			map_ui.show()
+		else:
+			map_ui.hide()
 
 func _change_active_ui_texture(idx):
 	match idx:
@@ -54,3 +57,9 @@ func _on_menu_button_pressed():
 
 func _on_return_button_pressed():
 	game_menu.hide()
+
+func show_death_panel():
+	death_panel.show()
+
+func _on_button_pressed(): # Play Again Button
+	get_tree().change_scene_to_file("res://Scenes/MainGame.tscn")
